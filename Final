@@ -1,0 +1,47 @@
+import tkinter as tk
+from tkinter import messagebox
+from PIL import Image, ImageTk
+
+class BudgetTracker:
+    """
+    BudgetTracker Application
+    A simple Tkinter GUI application that allows users to track their income, expenses, and budget limit.
+    """
+
+    def __init__(self, root):
+        """ Initialize the main application window. """
+        self.root = root
+        self.root.title("BudgetTracker")
+        self.root.geometry("400x400")
+
+        # Variables to store financial data
+        self.income = 0  # User's total income
+        self.expenses = 0  # User's total expenses
+        self.budget_limit = 0  # User-defined budget limit
+
+        # Load images
+        self.load_images()
+
+        # Create the home screen UI
+        self.create_home_screen()
+
+    def load_images(self):
+        """ Load and resize images for the GUI. """
+        try:
+            self.logo_img = Image.open("budget_logo.png")
+            self.logo_img = self.logo_img.resize((100, 100))
+            self.logo_img = ImageTk.PhotoImage(self.logo_img)
+
+            self.track_img = Image.open("track_expense.png")
+            self.track_img = self.track_img.resize((100, 100))
+            self.track_img = ImageTk.PhotoImage(self.track_img)
+        except Exception as e:
+            messagebox.showerror("Image Error", f"Error loading images: {e}")
+
+    def create_home_screen(self):
+        """ Display the main menu of the application. """
+        self.clear_window()
+
+        # Display application logo
+        if hasattr(self, 'logo_img'):
+            tk.Label(self.root, image=self.logo_img, text="BudgetTracker Logo",
